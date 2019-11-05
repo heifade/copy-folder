@@ -51,6 +51,10 @@ export function copyFolder(source: string, target: string, options: IOptions = {
   });
 }
 
+/**
+ * 删除目录及子目录
+ * @param path
+ */
 export function deleteFolder(path: string) {
   if (existsSync(path)) {
     const files = readdirSync(path, { encoding: "utf8" });
