@@ -1,6 +1,6 @@
 {
   "name": "copy-folder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "目录复制",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

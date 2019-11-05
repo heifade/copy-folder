@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+
     "sourceRoot": "./src",
     "module": "commonjs",
     "target": "es5",
@@ -20,5 +21,6 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src/**/*"]
 }
