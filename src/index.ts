@@ -1,5 +1,7 @@
 import { resolve } from "path";
-import { copyFileSync, readdirSync, existsSync, mkdirSync, statSync, unlinkSync, rmdirSync } from "fs";
+import { copyFileSync, readdirSync, existsSync, mkdirSync, statSync } from "fs";
+import { type } from "os";
+import { execSync } from "child_process";
 
 interface IOptions {
   /**
@@ -56,16 +58,27 @@ export function copyFolder(source: string, target: string, options: IOptions = {
  * @param path
  */
 export function deleteFolder(path: string) {
-  if (existsSync(path)) {
-    const files = readdirSync(path, { encoding: "utf8" });
-    files.map(file => {
-      const fileFullName = resolve(path, file);
-      if (statSync(fileFullName).isDirectory()) {
-        deleteFolder(fileFullName);
-      } else {
-        unlinkSync(fileFullName);
-      }
-    });
-    rmdirSync(path);
+  switch (type()) {
+    case "Windows_NT": {
+      execSync(`rd /S /Q "${path}"`);
+      break;
+    }
+    case "Darwin": {
+      execSync(`rm -rf "${path}"`);
+      break;
+    }
   }
+
+  // if (existsSync(path)) {
+  //   const files = readdirSync(path, { encoding: "utf8" });
+  //   files.map(file => {
+  //     const fileFullName = resolve(path, file);
+  //     if (statSync(fileFullName).isDirectory()) {
+  //       deleteFolder(fileFullName);
+  //     } else {
+  //       unlinkSync(fileFullName);
+  //     }
+  //   });
+  //   rmdirSync(path);
+  // }
 }
