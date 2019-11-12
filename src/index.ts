@@ -58,6 +58,9 @@ export function copyFolder(source: string, target: string, options: IOptions = {
  * @param path
  */
 export function deleteFolder(path: string) {
+  if (!existsSync(path)) {
+    return;
+  }
   switch (type()) {
     case "Windows_NT": {
       execSync(`rd /S /Q "${path}"`);
